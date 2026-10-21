@@ -1,9 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFillCartFill } from "react-icons/bs";
 import { MdFavorite } from "react-icons/md";
+import { useProductStore } from "@/lib/store/products";
 
 export default function Header() {
+  const cartCount = useProductStore((state) =>
+    state.cart.reduce((total, item) => total + item.quantity, 0),
+  );
+  const favoriteCount = useProductStore((state) => state.favorites.length);
+
   return (
     <header className="border-b border-brand-border bg-brand-surface">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-5 sm:px-6 lg:px-8">
@@ -36,20 +44,30 @@ export default function Header() {
         </form>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            aria-label="Favorites"
-            className="flex size-11 items-center justify-center rounded-full text-brand-text-secondary transition-colors hover:bg-brand-surface-muted hover:text-brand-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+          <Link
+            href="/favorites"
+            aria-label={`Favorites${favoriteCount ? `, ${favoriteCount} saved` : ""}`}
+            className="relative flex size-11 items-center justify-center rounded-full text-brand-text-secondary transition-colors hover:bg-brand-surface-muted hover:text-brand-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           >
             <MdFavorite aria-hidden="true" className="size-5" />
-          </button>
-          <button
-            type="button"
-            aria-label="Shopping cart"
-            className="flex size-11 items-center justify-center rounded-full text-brand-text-secondary transition-colors hover:bg-brand-surface-muted hover:text-brand-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+            {favoriteCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-brand-accent text-xs font-semibold text-white">
+                {favoriteCount}
+              </span>
+            )}
+          </Link>
+          <Link
+            href="/cart"
+            aria-label={`Shopping cart${cartCount ? `, ${cartCount} items` : ""}`}
+            className="relative flex size-11 items-center justify-center rounded-full text-brand-text-secondary transition-colors hover:bg-brand-surface-muted hover:text-brand-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           >
             <BsFillCartFill aria-hidden="true" className="size-5" />
-          </button>
+            {cartCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-brand-accent text-xs font-semibold text-white">
+                {cartCount}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
     </header>
