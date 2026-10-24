@@ -86,13 +86,22 @@ export default function Home() {
               {hasHydrated ? `${cartCount} items` : "Loading..."}
             </span>
           </div>
-          <button
-            type="button"
-            disabled
-            className="cursor-not-allowed rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-white opacity-60"
-          >
-            Buy (coming soon)
-          </button>
+          {cartCount > 0 ? (
+            <Link
+              href="/checkout"
+              className="rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-accent-hover"
+            >
+              Proceed to checkout
+            </Link>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="cursor-not-allowed rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-white opacity-60"
+            >
+              Your cart is empty
+            </button>
+          )}
         </div>
         <SavedProducts mode="cart" />
       </section>

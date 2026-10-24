@@ -12,6 +12,7 @@ type ProductStore = {
   favorites: Product[];
   hasHydrated: boolean;
   addToCart: (product: Product) => void;
+  clearCart: () => void;
   removeFromCart: (productId: Product["id"]) => void;
   setCartQuantity: (productId: Product["id"], quantity: number) => void;
   toggleFavorite: (product: Product) => void;
@@ -26,6 +27,10 @@ function getStoredProduct(product: Product): Product {
     description: product.description,
     price: product.price,
     thumbnail: product.thumbnail,
+    category: product.category,
+    brand: product.brand,
+    rating: product.rating,
+    stock: product.stock,
   };
 }
 
@@ -52,6 +57,7 @@ export const useProductStore = create<ProductStore>()(
               : [...state.cart, { product: storedProduct, quantity: 1 }],
           };
         }),
+      clearCart: () => set({ cart: [] }),
       removeFromCart: (productId) =>
         set((state) => ({
           cart: state.cart.filter((item) => item.product.id !== productId),

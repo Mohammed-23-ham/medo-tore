@@ -58,16 +58,21 @@ function SearchResults({ query, products, isPending, isError, error }) {
     <>
       <ul className="divide-y divide-brand-border">
         {matches.map((product) => (
-          <li key={product.id} className="flex items-center gap-3 p-3">
-            <ProductImage product={product} />
-            <div className="min-w-0 flex-1">
-              <p className="line-clamp-1 text-sm font-medium text-brand-ink">
-                {product.title}
-              </p>
-              <p className="mt-1 text-sm text-brand-text-secondary">
-                {priceFormatter.format(product.price)}
-              </p>
-            </div>
+          <li key={product.id}>
+            <Link
+              href={`/products/${product.id}`}
+              className="flex items-center gap-3 p-3 transition-colors hover:bg-brand-surface-muted"
+            >
+              <ProductImage product={product} />
+              <div className="min-w-0 flex-1">
+                <p className="line-clamp-1 text-sm font-medium text-brand-ink">
+                  {product.title}
+                </p>
+                <p className="mt-1 text-sm text-brand-text-secondary">
+                  {priceFormatter.format(product.price)}
+                </p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
@@ -107,7 +112,7 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b border-brand-border bg-brand-surface">
+    <header className="sticky top-0 z-50 border-b border-brand-border bg-brand-surface shadow-sm">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-4 py-5 sm:px-6 lg:px-8">
         <Link
           href="/"
@@ -302,13 +307,12 @@ export default function Header() {
                         <span>Total</span>
                         <span>{priceFormatter.format(cartTotal)}</span>
                       </p>
-                      <button
-                        type="button"
-                        disabled
-                        className="w-full cursor-not-allowed rounded-full bg-brand-accent px-4 py-3 text-sm font-semibold text-white opacity-60"
+                      <Link
+                        href="/checkout"
+                        className="block w-full rounded-full bg-brand-accent px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-accent-hover"
                       >
-                        Buy (coming soon)
-                      </button>
+                        Proceed to checkout
+                      </Link>
                     </div>
                   </>
                 )}
