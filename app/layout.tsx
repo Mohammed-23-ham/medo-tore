@@ -3,7 +3,8 @@ import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { cn } from "@/lib/utils";
-import { Header } from "@/app/index"
+import { Header } from "@/app/index";
+import Footer from "@/components/componants/Footer";
 
 
 const playfair = Playfair_Display({
@@ -28,7 +29,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           <Header />
           {children}
-          </Providers>
+          <Footer />
+        </Providers>
         </body>
     </html>
   );

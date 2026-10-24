@@ -27,7 +27,7 @@ function ProductCard({
   const hasHydrated = useProductStore((state) => state.hasHydrated);
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-brand-border bg-white shadow-sm transition-shadow hover:shadow-md">
+    <article className="motion-card overflow-hidden rounded-2xl border border-brand-border bg-white shadow-sm">
       <div className="relative aspect-[4/3] bg-brand-surface-muted">
         <Image
           src={product.thumbnail}
